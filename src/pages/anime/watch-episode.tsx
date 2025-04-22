@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ListVideo } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VideoPlayer } from "@/components/anime/video-player";
 import { EpisodeList } from "@/components/anime/episode-list";
-import { getAnimeById, getEpisodeById } from "@/data/mock-data";
+import { getAnimeById, getEpisodeById, mockAnimes } from "@/data/mock-data";
 import { Anime, Episode } from "@/types/anime";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
@@ -62,8 +62,12 @@ export default function WatchEpisode() {
     );
   }
 
+  // Improved similar anime logic based on genres and studio
   const similarAnimes = anime ? 
-    getAnimeById("2") ? [getAnimeById("2")] : [] : 
+    mockAnimes.filter(a => 
+      a.id !== anime.id && 
+      (a.genres.some(g => anime.genres.includes(g)) || a.studio === anime.studio)
+    ).slice(0, 3) : 
     [];
 
   return (
