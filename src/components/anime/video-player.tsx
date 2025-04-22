@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { 
   Play, 
@@ -40,7 +39,6 @@ export function VideoPlayer({
   const [showControls, setShowControls] = useState(true);
   const [isBuffering, setIsBuffering] = useState(false);
   
-  // Controls visibility timer
   const controlsTimerRef = useRef<ReturnType<typeof setTimeout>>();
   
   useEffect(() => {
@@ -77,7 +75,6 @@ export function VideoPlayer({
     };
   }, [onTimeUpdate]);
   
-  // Handle fullscreen changes
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
@@ -89,7 +86,6 @@ export function VideoPlayer({
     };
   }, []);
   
-  // Auto-hide controls when idle
   useEffect(() => {
     const resetControlsTimer = () => {
       if (controlsTimerRef.current) {
@@ -127,7 +123,6 @@ export function VideoPlayer({
     };
   }, [isPlaying]);
   
-  // Helper functions
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -188,6 +183,10 @@ export function VideoPlayer({
     video.currentTime += seconds;
   };
   
+  const handleQualityChange = (quality: string) => {
+    console.log('Quality changed to:', quality);
+  };
+  
   return (
     <div 
       ref={containerRef}
@@ -219,10 +218,8 @@ export function VideoPlayer({
           showControls ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
       >
-        {/* Gradient overlay for better contrast with controls */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
         
-        {/* Top control bar */}
         <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between z-10">
           {title && (
             <h3 className="font-medium text-white text-shadow drop-shadow-lg">{title}</h3>
@@ -238,7 +235,6 @@ export function VideoPlayer({
           </div>
         </div>
         
-        {/* Center play/pause button */}
         <div className="absolute inset-0 flex items-center justify-center">
           <button
             className={cn(
@@ -252,9 +248,18 @@ export function VideoPlayer({
           </button>
         </div>
         
-        {/* Bottom control bar */}
+        <div className="absolute bottom-16 right-4">
+          <div className="flex items-center gap-2">
+            <button 
+              className="p-1 rounded-full bg-black/30 backdrop-blur-sm text-white hover:bg-black/50"
+              onClick={() => handleQualityChange('720p')}
+            >
+              <span className="text-sm px-2">720p</span>
+            </button>
+          </div>
+        </div>
+        
         <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-          {/* Progress bar */}
           <div className="mb-4 px-1">
             <Slider
               value={[currentTime]}

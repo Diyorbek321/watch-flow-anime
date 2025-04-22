@@ -9,6 +9,7 @@ import { Anime, Episode } from "@/types/anime";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { PostEpisodeEngagement } from "@/components/anime/post-episode-engagement";
+import { supabase } from "@/lib/supabase";
 
 export default function WatchEpisode() {
   const { animeId, episodeId } = useParams<{ animeId: string, episodeId: string }>();
@@ -30,6 +31,27 @@ export default function WatchEpisode() {
       }, 500);
     }
   }, [animeId, episodeId]);
+
+  const getVideoUrl = async (path: string) => {
+    if (!path) return null;
+    
+    const { data: { publicUrl } } = supabase
+      .storage
+      .from('videos')
+      .getPublicUrl(path);
+      
+    return publicUrl;
+  };
+
+  useEffect(() => {
+    if (episode?.video_path) {
+      getVideoUrl(episode.video_path).then(url => {
+        if (url) {
+          episode.videoUrl = url;
+        }
+      });
+    }
+  }, [episode]);
 
   const currentEpisodeIndex = episode 
     ? anime?.episodes.findIndex(ep => ep.id === episode.id) || 0 

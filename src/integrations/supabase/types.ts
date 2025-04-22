@@ -149,6 +149,7 @@ export type Database = {
           thumbnail: string | null
           title: string
           updated_at: string | null
+          video_path: string | null
           video_url: string | null
         }
         Insert: {
@@ -162,6 +163,7 @@ export type Database = {
           thumbnail?: string | null
           title: string
           updated_at?: string | null
+          video_path?: string | null
           video_url?: string | null
         }
         Update: {
@@ -175,6 +177,7 @@ export type Database = {
           thumbnail?: string | null
           title?: string
           updated_at?: string | null
+          video_path?: string | null
           video_url?: string | null
         }
         Relationships: [
@@ -322,7 +325,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_video_url: {
+        Args: { path: string }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
