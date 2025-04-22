@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +12,10 @@ import SignUpPage from "./pages/auth/signup";
 import AnimeDetail from "./pages/anime/anime-detail";
 import WatchEpisode from "./pages/anime/watch-episode";
 import Browse from "./pages/browse/browse";
+import AdminDashboard from "./pages/admin/dashboard"; 
+import ManageAnime from "./pages/admin/anime/manage";
+import AddAnime from "./pages/admin/anime/add";
+import EditAnime from "./pages/admin/anime/edit";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +31,12 @@ const App = () => (
             <Route path="/browse" element={<Browse />} />
             <Route path="/anime/:id" element={<AnimeDetail />} />
             <Route path="/anime/:animeId/watch/:episodeId" element={<WatchEpisode />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/anime/manage" element={<ManageAnime />} />
+            <Route path="/admin/anime/add" element={<AddAnime />} />
+            <Route path="/admin/anime/edit/:id" element={<EditAnime />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
