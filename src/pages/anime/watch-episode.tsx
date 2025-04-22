@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ListVideo } from "lucide-react";
@@ -9,6 +8,7 @@ import { getAnimeById, getEpisodeById } from "@/data/mock-data";
 import { Anime, Episode } from "@/types/anime";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { PostEpisodeEngagement } from "@/components/anime/post-episode-engagement";
 
 export default function WatchEpisode() {
   const { animeId, episodeId } = useParams<{ animeId: string, episodeId: string }>();
@@ -61,6 +61,10 @@ export default function WatchEpisode() {
       </div>
     );
   }
+
+  const similarAnimes = anime ? 
+    getAnimeById("2") ? [getAnimeById("2")] : [] : 
+    [];
 
   return (
     <div className="min-h-screen">
@@ -175,6 +179,12 @@ export default function WatchEpisode() {
                   <p className="text-muted-foreground">Login to leave a comment.</p>
                 </div>
               </div>
+              
+              <PostEpisodeEngagement
+                anime={anime}
+                isLastEpisode={!nextEpisode}
+                similarAnimes={similarAnimes}
+              />
             </div>
           </div>
           
