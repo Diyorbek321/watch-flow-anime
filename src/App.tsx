@@ -3,8 +3,14 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Layout } from "@/components/layout/layout";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import LoginPage from "./pages/auth/login";
+import SignUpPage from "./pages/auth/signup";
+import AnimeDetail from "./pages/anime/anime-detail";
+import WatchEpisode from "./pages/anime/watch-episode";
+import Browse from "./pages/browse/browse";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +21,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/browse" element={<Browse />} />
+            <Route path="/anime/:id" element={<AnimeDetail />} />
+            <Route path="/anime/:animeId/watch/:episodeId" element={<WatchEpisode />} />
+          </Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

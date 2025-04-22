@@ -61,6 +61,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Anime theme colors
+				anime: {
+					primary: '#6C5CE7', // Deep purple
+					secondary: '#5352ED', // Indigo
+					accent: '#FF6B6B', // Vibrant red
+					muted: '#A3A1FB', // Light purple
+					light: '#F1F2F6', // Light gray for light mode
+					dark: '#1E1E2C', // Dark blue-gray for dark mode
+					card: '#2D2D3F', // Card background in dark mode
 				}
 			},
 			borderRadius: {
@@ -84,11 +94,25 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-glow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 8px 2px rgba(108, 92, 231, 0.2)' 
+					},
+					'50%': { 
+						boxShadow: '0 0 16px 4px rgba(108, 92, 231, 0.4)' 
+					},
+				},
+				'fade-in': {
+					from: { opacity: '0' },
+					to: { opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'fade-in': 'fade-in 0.3s ease-out'
 			}
 		}
 	},
